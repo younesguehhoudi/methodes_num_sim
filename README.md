@@ -9,14 +9,14 @@ git clone https://github.com/younesguehhoudi/methodes_num_sim.git
 
 ### Récupérer les mises à jour (Pull)
 ```bash
-git pull
+git pull origin main
 ```
 
 ### Envoyer les modifications (Push)
 ```bash
 git add .
 git commit -m "continuation du projet"
-git push
+git push origin main
 ```
 
 ### Vérifier le statut
