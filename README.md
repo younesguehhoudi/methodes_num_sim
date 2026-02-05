@@ -14,13 +14,8 @@ git pull
 
 ### Envoyer les modifications (Push)
 ```bash
-# Ajouter les fichiers modifiés
 git add .
-
-# Créer un commit
-git commit -m "Description des changements"
-
-# Envoyer vers le serveur
+git commit -m "continuation du projet"
 git push
 ```
 

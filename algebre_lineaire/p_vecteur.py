@@ -44,7 +44,7 @@ class t_vecteur:
     def meme_dim(self, other):
         """retourne un bool : true -> les 2 vecteur sont de meme dimension
                               false -> les 2 vecteur ne sont pas de meme dimension"""
-        return t_vecteur.dimension(self.coordonnees) == t_vecteur.dimension(other)
+        return self.dimension() == other.dimension()
 
     def add_elmts_tab(x):
         """ ajoute tout les element d'un tableau et retourn un int"""
@@ -56,7 +56,7 @@ class t_vecteur:
 
     def __matmul__(self, other):
         """retorune le produit scalaire de <self> et de <other>"""
-        if (t_vecteur.meme_dim(self.coordonnees, other) == True):
+        if (self.meme_dim(other) == True):
             tab = []
             i = 0
             for i in range(len(self.coordonnees)):
@@ -69,7 +69,7 @@ class t_vecteur:
         
     def norme_carre(self):
         """retorune le carré de la norme de <self>"""
-        pass
+        return (self.__matmul__(self))
         
     def norme(self):
         """retorune la norme de <self>"""
