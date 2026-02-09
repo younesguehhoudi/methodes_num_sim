@@ -45,8 +45,21 @@ print("le produit scalaire du vecteur 1 et du vecteur 2 est:")
 print(vecteur4.__matmul__(vecteur5))
 print("le carre de la norme du vecteur" , vecteur1 , "est:")
 print(vecteur1.norme_carre()) 
-#    print("la norme du vecteur 1 est:")
-#    print(vecteur1.norme())
-#    print("le vecteur normalise du vecteur 1 est:")
-#    print(vecteur1.normalise())
+print("la norme du vecteur 1 est:")
+print(vecteur1.norme())
+print("le vecteur normalise du vecteur 1 est:")
+print(vecteur1.normalise())
 # %%
+mes_vecteurs = []
+mes_vecteurs.append(t_vecteur([1, 2, -3]))
+mes_vecteurs.append(t_vecteur([7, 0, -3]))
+mes_vecteurs.append(t_vecteur([0, 4, 5]))
+for v in mes_vecteurs:
+    print(v)
+print(mes_vecteurs[1] + mes_vecteurs[0])
+print(mes_vecteurs[2] * 2)
+print(mes_vecteurs[0] @ mes_vecteurs[1])
+print(mes_vecteurs[2].norme())
+print(mes_vecteurs[2].normalise())
+# %%
+    
