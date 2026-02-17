@@ -98,15 +98,18 @@ class t_vecteur:
         
     def est_colineaire(self, other):
         """retourne True si <self> et <other> sont colinéaires"""
-        i = 0
-        while(i != len(self.coordonnees) -1 ):
-            temp = self.coordonnees[i] / other[i]
-            temp2 = self.coordonnees[i+1] / other[i+1]
-            if (temp == temp2):
-                i += 1
-            else:
-                return False
-        return True 
+        #i = 0
+        #while(i != len(self.coordonnees) -1 ):
+        #    temp = self.coordonnees[i] / other[i]
+        #    temp2 = self.coordonnees[i+1] / other[i+1]
+        #    if (temp == temp2):
+        #        i += 1
+        #    else:
+        #        return False
+        #return True 
+        pass
+        """d'abord avoir les methode pour faire un pivot de gauss
+        et voir si un fammile est lié """
     
     def est_orthogonal(self, other):
         """retourne True si <self> et <other> sont orthogonaux"""
