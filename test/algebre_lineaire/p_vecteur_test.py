@@ -1,5 +1,6 @@
 #%%
-from p_vecteur import t_vecteur
+#charge,importe et teste la classe t_vecteur
+from module.algebre_lineaire.p_vecteur import t_vecteur
 
 #initialisation des vecteurs pour les tests
 mes_coordonnees = [1,2,3]
