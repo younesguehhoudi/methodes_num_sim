@@ -11,7 +11,7 @@ class t_vecteur:
     
     def __repr__(self):
         try :
-            return "t_vecteur(" + str(self.coordonnees) + ")"
+            return "vecteur(" + str(self.coordonnees) + ")"
         except AttributeError :
             return "vecteur non existantq"
 
