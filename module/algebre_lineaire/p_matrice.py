@@ -125,7 +125,19 @@ class t_matrice:
         matrice_resultat = t_matrice(result)
         return matrice_resultat
 
-    # outil pivot de gauss
+    # outil pivt de gausse
+
+    def copy(self):
+        """retorune une copie de la matrice"""
+        vecteurs_copie = []
+        i = 0
+        for i in range(len(self.matrice)):
+            coord_copie = []
+            j = 0
+            for j in range(self.matrice[i].dimension()):
+                coord_copie.append(self.matrice[i][j])
+            vecteurs_copie.append(t_vecteur(coord_copie))
+        return t_matrice(vecteurs_copie)
 
     def echange_lignes(self, i, j):
         """Échange la ligne i et la ligne j (L_i <-> L_j)"""
@@ -149,16 +161,52 @@ class t_matrice:
 
     def forme_echelonnee(self):
         """Applique l'algorithme du Pivot de Gauss pour échelonner la matrice"""
-        pass
+        #foeme echelonnee d'une matrice
+        nb_lignes, nb_colonnes = self.dimension()
+        for i in range(min(nb_lignes, nb_colonnes)):
+            # Trouver le pivot
+            pivot = self.matrice[i][i]
+            if pivot == 0:
+                # Si le pivot est nul, essayer de trouver une ligne en dessous pour échanger
+                for j in range(i + 1, nb_lignes):
+                    if self.matrice[j][i] != 0:
+                        self.echange_lignes(i, j)
+                        pivot = self.matrice[i][i]
+                        break
+            
+            if pivot != 0:
+                # Normaliser la ligne du pivot
+                self.multiplie_ligne(i, 1 / pivot)
+                
+                # Éliminer les éléments en dessous du pivot
+                for j in range(i + 1, nb_lignes):
+                    facteur = self.matrice[j][i]
+                    self.ajoute_ligne(j, i, -facteur)
 
     def rang(self):
         """Retourne le rang de la matrice"""
-        pass
+        matrice_echelonnee = self.copy()
+        matrice_echelonnee.forme_echelonnee()
+        nb_lignes, nb_colonnes = matrice_echelonnee.dimension()
+        rang = 0
+        for i in range(nb_lignes):
+            ligne = matrice_echelonnee.matrice[i]
+            if any(x != 0 for x in ligne):
+                rang += 1
+        return rang
 
     def determinant(self):
         """Calcule le déterminant (si carrée)"""
-        pass
+        if not self.est_carree():
+            print("Le déterminant n'est défini que pour les matrices carrées.")
+            return None
+        matrice_echelonnee = self.copy()
+        matrice_echelonnee.forme_echelonnee()
+        determinant = 1
+        for i in range(len(matrice_echelonnee.matrice)):
+            determinant *= matrice_echelonnee.matrice[i][i]
+        return determinant
 
     def est_inversible(self):
         """Vérifie si la matrice est inversible"""
-        pass
+        return self.rang() == self.dimension()[0]
