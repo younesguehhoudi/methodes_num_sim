@@ -1,9 +1,8 @@
-import sys
-sys.path.append('..')
-from algebre_lineaire.p_matrice import t_matrice
-from algebre_lineaire.p_vecteur import t_vecteur
+from p_matrice import t_matrice
+from p_vecteur import t_vecteur
 
 class t_famille_vecteurs:
+    """Représente une famille finie de vecteurs."""
 
     def __init__(self, liste_vecteurs):
         """Constructeur qui prend une liste de t_vecteur et cree une fammile"""
@@ -62,10 +61,7 @@ class t_famille_vecteurs:
         """retorune True si la fammile est lineairement independante"""
         rg = self.rang_famille()
         nb = self.nombre_vecteurs()
-        if rg == nb:
-            return True
-        else :
-            return False
+        return rg == nb
     
     def est_liee(self):
         """retorune True si la fammile est lineairement dependante"""
@@ -80,29 +76,16 @@ class t_famille_vecteurs:
         # si le rang est 1 alors les vecteurs sont colineaire
         # si le rang est 2 alors ils sont independant
         rg = self.rang_famille()
-        if rg == 1:
-            return True
-        else :
-            return False
+        return rg == 1
     
     def est_generatrice(self, dimension_espace):
         """retorune True si la fammile engendre l'espace de dimension_espace"""
         rg = self.rang_famille()
-        if rg == dimension_espace:
-            return True
-        else :
-            return False
+        return rg == dimension_espace
     
     def est_base(self, dimension_espace):
         """retorune True si la fammile est une base (libre ET generatrice)"""
-        if self.est_libre() and self.est_generatrice(dimension_espace):
-            return True
-        else :
-            return False
-    
-    def dimension_vect(self):
-        """retorune la dimension de l'espace vectoriel engendré par la fammile"""
-        return self.rang_famille()
+        return self.est_libre() and self.est_generatrice(dimension_espace)
     
     def extraire_base(self):
         """extrai une base de la fammile (enleve les vecteurs en trop)"""
@@ -122,13 +105,6 @@ class t_famille_vecteurs:
         """retorune True si la fammile contient le vecteur nul"""
         i = 0
         for i in range(len(self.vecteurs)):
-            temp = self.vecteurs[i]
-            est_nul = True
-            j = 0
-            for j in range(temp.dimension()):
-                if temp[j] != 0:
-                    est_nul = False
-                    break
-            if est_nul:
+            if self.vecteurs[i].est_nul():
                 return True
         return False

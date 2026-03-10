@@ -1,4 +1,5 @@
 class t_vecteur:
+    """Représente un vecteur et ses opérations de base."""
 
     def __init__(self, coordonnees):
         """Constructeur qui place dans l'attribut de <self> les_coordonnees le tuple
@@ -25,35 +26,47 @@ class t_vecteur:
         """retourne la composante d'indice <key> dans le vecteur <self>"""
         composante = self.coordonnees[key]
         return composante
+
+    def __len__(self):
+        return len(self.coordonnees)
+
+    def __iter__(self):
+        return iter(self.coordonnees)
     
     def dimension(self):
-        """Fournit le nombre de coordonnées du vecteur <self>"""
+        """retourne la dimension (nombre de composantes) du vecteur <self>"""
+
         x = len(self.coordonnees)
         return x
         
     def __add__(self, other):
-        """retorune la somme de <self> et <other>"""
+        """retourne la somme du vecteur <self> et du vecteur <other>.
+        Retourne None si les deux vecteurs n'ont pas la même dimension."""
+
+        if not self.meme_dim(other):
+            return None
         tab = []
         i = 0
         for i in range(len(self.coordonnees)):
             tab.append(self.coordonnees[i] + other[i])
-        return tab
-        
+        return t_vecteur(tab)
+
     def __mul__(self, coefficient):
-        """retorune <coefficient> fois le vecteur <self> (sic l'ordre)"""
+        """retourne le vecteur <self> multiplié par le scalaire <coefficient>"""
         tab = []
         i = 0
         for i in range(len(self.coordonnees)):
             tab.append(coefficient * self.coordonnees[i])
-        return tab
+        return t_vecteur(tab)
 
     def meme_dim(self, other):
-        """retourne un bool : true -> les 2 vecteur sont de meme dimension
-                              false -> les 2 vecteur ne sont pas de meme dimension"""
+        """retourne un bool : True si les 2 vecteurs sont de même dimension,
+        False sinon."""
         return self.dimension() == other.dimension()
 
+    @staticmethod
     def add_elmts_tab(x):
-        """ ajoute tout les element d'un tableau et retourn un int"""
+        """ajoute tous les éléments d'un tableau et retourne leur somme"""
         i = 0
         temp = 0
         for i in range(len(x)):
@@ -61,7 +74,8 @@ class t_vecteur:
         return temp
 
     def __matmul__(self, other):
-        """retorune le produit scalaire de <self> et de <other>"""
+        """retourne le produit scalaire de <self> et de <other>.
+        Affiche un message d'erreur si les deux vecteurs n'ont pas la même dimension."""
         if (self.meme_dim(other) == True):
             tab = []
             i = 0
@@ -75,7 +89,7 @@ class t_vecteur:
         
     def norme_carre(self):
         """retorune le carré de la norme de <self>"""
-        return (self.__matmul__(self))
+        return t_vecteur.add_elmts_tab([x * x for x in self.coordonnees])
         
     def norme(self):
         """retorune la norme de <self>"""
@@ -92,9 +106,9 @@ class t_vecteur:
                 temp3 = self.coordonnees[i]
                 temp2.append(temp3 * (1 / temp ))
                 i += 1
-            return temp2
+            return t_vecteur(temp2)
         else : 
-            return self.coordonnees
+            return t_vecteur(self.coordonnees)
         
     def est_colineaire(self, other):
         """retourne True si <self> et <other> sont colinéaires"""
@@ -108,7 +122,7 @@ class t_vecteur:
         #        return False
         #return True 
         pass
-        """d'abord avoir les methode pour faire un pivot de gauss
+        """ fausse bonne idée d'abord avoir les methode pour faire un pivot de gauss
         et voir si un fammile est lié """
     
     def est_orthogonal(self, other):
@@ -117,3 +131,7 @@ class t_vecteur:
             return True
         else : 
             return False
+
+    def est_nul(self):
+        """retourne True si le vecteur est nul"""
+        return self.norme_carre() == 0
